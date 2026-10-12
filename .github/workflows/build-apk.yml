@@ -1,0 +1,45 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 1. Klonování kódu
+      uses: actions/checkout@v4
+
+    - name: 2. Nastavení Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: 3. Instalace závislostí
+      run: npm install
+
+    - name: 4. Inicializace Capacitoru a Androidu
+      run: |
+        npx cap init Kaboom com.kaboom.app --web-dir www
+        npx cap add android
+        npx cap sync android
+
+    - name: 5. Nastavení Java JDK
+      uses: actions/setup-java@v5
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+
+    - name: 6. Sestavení Android APK (Gradle)
+      run: |
+        cd android
+        chmod +x gradlew
+        ./gradlew assembleDebug
+
+    - name: 7. Uložení APK ke stažení
+      uses: actions/upload-artifact@v4
+      with:
+        name: kaboom-debug-apk
+        path: android/app/build/outputs/apk/debug/app-debug.apk
