@@ -1,11 +1,14 @@
 {
   "name": "kaboom",
   "version": "1.0.0",
-  "private": true,
-  "description": "Kaboom - videa a sociální síť",
+  "description": "Kaboom social app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
-    "@capacitor/android": "^6.1.0",
-    "@capacitor/cli": "^6.1.0",
-    "@capacitor/core": "^6.1.0"
+    "@capacitor/android": "^5.0.0",
+    "@capacitor/cli": "^5.0.0",
+    "@capacitor/core": "^5.0.0"
   }
 }
