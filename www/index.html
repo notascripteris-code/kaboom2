@@ -1,62 +1,71 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-<meta name="theme-color" content="#1B1030">
-<title>Kaboom</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaboom - Social App</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="app">
-  <header id="top">
-    <div class="logo" id="logo">KA<span>BOOM</span></div>
-    <button id="btnSearch" class="icon-btn" aria-label="Hledat">🔍</button>
-  </header>
-  <div id="searchbar" hidden><input id="q" type="search" placeholder="Hledat videa a tvůrce"></div>
+    <div id="app">
+        <header class="app-header">
+            <h1>KABOOM 💥</h1>
+            <div class="nav-buttons">
+                <button onclick="switchTab('feed')">Feed</button>
+                <button onclick="switchTab('upload')">Nahrát</button>
+                <button onclick="switchTab('live')">Live</button>
+                <button onclick="switchTab('profile')">Můj profil</button>
+            </div>
+        </header>
 
-  <main>
-    <section id="view-home" class="view active">
-      <div id="chips"></div>
-      <div id="grid"></div>
-    </section>
-    <section id="view-reels" class="view"></section>
-    <section id="view-upload" class="view">
-      <div class="panel">
-        <h2>Nahrát video</h2>
-        <p class="muted">Vyber video z telefonu. Objeví se v tvém feedu.</p>
-        <label class="drop" id="drop">
-          <input id="file" type="file" accept="video/*" hidden>
-          <span id="dropText">Vybrat video</span>
-        </label>
-        <video id="preview" playsinline muted controls hidden></video>
-        <input id="title" class="field" maxlength="80" placeholder="Název videa">
-        <button id="publish" class="btn">Publikovat</button>
-      </div>
-    </section>
-    <section id="view-profile" class="view">
-      <div class="panel" id="profile"></div>
-    </section>
-  </main>
+        <main>
+            <section id="tab-feed" class="tab-content active">
+                <div class="feed-filter">
+                    <button class="filter-btn active" onclick="filterFeed('all')">Vše</button>
+                    <button class="filter-btn" onclick="filterFeed('short')">Shorts ⚡</button>
+                    <button class="filter-btn" onclick="filterFeed('long')">Long-form 🎬</button>
+                </div>
+                <div id="posts-container"></div>
+            </section>
 
-  <nav id="tabs">
-    <button data-tab="home" class="on"><i>🏠</i>Domů</button>
-    <button data-tab="reels"><i>💥</i>Kaboom</button>
-    <button data-tab="upload" class="plus"><i>＋</i></button>
-    <button data-tab="following"><i>⭐</i>Sleduji</button>
-    <button data-tab="profile"><i>🙂</i>Profil</button>
-  </nav>
+            <section id="tab-upload" class="tab-content">
+                <h2>Nový příspěvek</h2>
+                <form id="upload-form" onsubmit="handleUpload(event)">
+                    <input type="text" id="post-title" placeholder="Název videa..." required>
+                    <select id="post-type" required>
+                        <option value="short">Short (krátké video)</option>
+                        <option value="long">Long-form (dlouhé video)</option>
+                    </select>
+                    <input type="file" id="post-file" accept="video/*" required>
+                    <button type="submit" class="btn-primary">Publikovat</button>
+                </form>
+            </section>
 
-  <div id="sheet" hidden>
-    <div class="sheet-bg" id="sheetBg"></div>
-    <div class="sheet-box">
-      <div class="sheet-head"><b id="sheetTitle">Komentáře</b><button class="icon-btn" id="sheetClose">✕</button></div>
-      <div id="comments"></div>
-      <div class="sheet-input"><input id="cInput" maxlength="200" placeholder="Přidat komentář"><button id="cSend" class="btn small">Odeslat</button></div>
+            <section id="tab-live" class="tab-content">
+                <h2>Kaboom Live Stream</h2>
+                <div class="live-container">
+                    <div class="video-grid">
+                        <video id="local-video" autoplay muted playsinline></video>
+                        <video id="remote-video" autoplay playsinline></video>
+                    </div>
+                    <div class="live-controls">
+                        <button id="btn-toggle-cam" onclick="toggleCamera()">Vypnout kameru</button>
+                        <button id="btn-toggle-mic" onclick="toggleMic()">Vypnout zvuk</button>
+                        <button onclick="startLivestream()" class="btn-primary">Spustit Stream</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tab-profile" class="tab-content">
+                <div class="profile-card">
+                    <img id="profile-avatar" src="https://via.placeholder.com/100" alt="Avatar">
+                    <h2 id="profile-name">Uživatel</h2>
+                    <p id="profile-bio">Tady bude bio uživatele...</p>
+                    <div id="profile-posts"></div>
+                </div>
+            </section>
+        </main>
     </div>
-  </div>
-  <div id="toast"></div>
-</div>
-<script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
