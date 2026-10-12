@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#1B1030">
+<title>Kaboom</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header id="top">
+    <div class="logo" id="logo">KA<span>BOOM</span></div>
+    <button id="btnSearch" class="icon-btn" aria-label="Hledat">🔍</button>
+  </header>
+  <div id="searchbar" hidden><input id="q" type="search" placeholder="Hledat videa a tvůrce"></div>
+
+  <main>
+    <section id="view-home" class="view active">
+      <div id="chips"></div>
+      <div id="grid"></div>
+    </section>
+    <section id="view-reels" class="view"></section>
+    <section id="view-upload" class="view">
+      <div class="panel">
+        <h2>Nahrát video</h2>
+        <p class="muted">Vyber video z telefonu. Objeví se v tvém feedu.</p>
+        <label class="drop" id="drop">
+          <input id="file" type="file" accept="video/*" hidden>
+          <span id="dropText">Vybrat video</span>
+        </label>
+        <video id="preview" playsinline muted controls hidden></video>
+        <input id="title" class="field" maxlength="80" placeholder="Název videa">
+        <button id="publish" class="btn">Publikovat</button>
+      </div>
+    </section>
+    <section id="view-profile" class="view">
+      <div class="panel" id="profile"></div>
+    </section>
+  </main>
+
+  <nav id="tabs">
+    <button data-tab="home" class="on"><i>🏠</i>Domů</button>
+    <button data-tab="reels"><i>💥</i>Kaboom</button>
+    <button data-tab="upload" class="plus"><i>＋</i></button>
+    <button data-tab="following"><i>⭐</i>Sleduji</button>
+    <button data-tab="profile"><i>🙂</i>Profil</button>
+  </nav>
+
+  <div id="sheet" hidden>
+    <div class="sheet-bg" id="sheetBg"></div>
+    <div class="sheet-box">
+      <div class="sheet-head"><b id="sheetTitle">Komentáře</b><button class="icon-btn" id="sheetClose">✕</button></div>
+      <div id="comments"></div>
+      <div class="sheet-input"><input id="cInput" maxlength="200" placeholder="Přidat komentář"><button id="cSend" class="btn small">Odeslat</button></div>
+    </div>
+  </div>
+  <div id="toast"></div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
